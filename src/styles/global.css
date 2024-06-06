@@ -46,6 +46,6 @@
   }
 
   .project-tag {
-    @apply px-5 py-[5px]  text-primary font-medium absolute group-hover:visible invisible rounded-2xl z-20 self-center text-base border-2 border-primary;
+    @apply px-5 py-[5px] text-primary font-medium absolute group-hover:visible invisible rounded-2xl z-20 self-center text-base border-2 border-primary;
   }
 }

@@ -13,9 +13,73 @@ import RightSide from "./RightSide.astro";
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
   </head>
   <body>
-    <section class="hidden xl:flex flex-row">
+    <h1>Password Verification</h1>
+    <form id="passwordForm" class="w-1/4 m-20">
+      <label
+        for="password"
+        class="block text-sm font-medium leading-6 text-gray-900"
+      >
+        Password
+      </label>
+      <div class="mt-2">
+        <input
+          id="password"
+          name="password"
+          type="password"
+          required
+          class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+        />
+      </div>
+      <button type="submit" class="bg-accent text-white px-10 py-10"
+        >Submit</button
+      >
+    </form>
+    <p id="message"></p>
+    <!-- <section class="hidden xl:flex flex-row">
       <RightSide />
       <LeftSide />
-    </section>
+    </section> -->
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById("passwordForm") as HTMLFormElement;
+        const message = document.getElementById(
+          "message"
+        ) as HTMLParagraphElement;
+        const passwordInput = document.getElementById(
+          "password"
+        ) as HTMLInputElement;
+
+        const correctPassword: string = "yourPassword123"; // Set your correct password here
+
+        // Retrieve the saved password from localStorage if it exists
+        const savedPassword: string | null =
+          localStorage.getItem("savedPassword");
+        if (savedPassword) {
+          passwordInput.value = savedPassword;
+          verifyPassword(savedPassword);
+        }
+
+        form.addEventListener("submit", (event: Event) => {
+          event.preventDefault();
+          const enteredPassword: string = passwordInput.value;
+
+          // Save the entered password to localStorage
+          localStorage.setItem("savedPassword", enteredPassword);
+
+          verifyPassword(enteredPassword);
+        });
+
+        function verifyPassword(password: string): void {
+          if (password === correctPassword) {
+            message.textContent = "Password is correct!";
+            message.style.color = "green";
+          } else {
+            message.textContent = "Password is incorrect. Please try again.";
+            message.style.color = "red";
+          }
+        }
+      });
+    </script>
   </body>
 </html>
